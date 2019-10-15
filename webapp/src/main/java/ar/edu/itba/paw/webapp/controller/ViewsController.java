@@ -29,6 +29,7 @@ public class ViewsController {
 	public ModelAndView search() {
 		final ModelAndView mav = new ModelAndView("search");
 		mav.addObject("genres",seriesService.getAllGenres());
+        mav.addObject("networks",seriesService.getAllNetworks());
 		return mav;
 	}
 

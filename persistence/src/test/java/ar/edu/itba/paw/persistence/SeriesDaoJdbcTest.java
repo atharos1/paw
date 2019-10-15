@@ -535,6 +535,16 @@ public class SeriesDaoJdbcTest {
         Assert.assertEquals(GENRE_ID,g.getId());
     }
     @Test
+    public void getAllNetworksTest(){
+        //Setup
+        populateDatabase();
+        //Ejercitar
+        List<String> networks = seriesDao.getAllNetworks();
+        //Asserts
+        Assert.assertEquals(1,networks.size());
+        Assert.assertEquals(NETWORK_NAME,networks.get(0));
+    }
+    @Test
     public void getSeriesByWrongId(){
         //Setup
         populateDatabase();

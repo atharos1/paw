@@ -85,6 +85,11 @@ public class SeriesServiceImpl implements SeriesService {
     }
 
     @Override
+    public List<String> getAllNetworks() {
+        return seriesDao.getAllNetworks();
+    }
+
+    @Override
     public void followSeries(long seriesId) throws NotFoundException, UnauthorizedException {
         User user = userService.getLoggedUser().orElseThrow(UnauthorizedException::new);
         int result = seriesDao.followSeries(seriesId, user.getId());

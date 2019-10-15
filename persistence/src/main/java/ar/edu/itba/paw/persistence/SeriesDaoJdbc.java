@@ -222,6 +222,13 @@ public class SeriesDaoJdbc implements SeriesDao {
     }
 
     @Override
+    public List<String> getAllNetworks() {
+        return seriesJdbcTemplate.query("SELECT name FROM network",(resultSet, i) -> {
+            return resultSet.getString("name");
+        });
+    }
+
+    @Override
     public Optional<Series> getSeriesById(final long id, final long userId) {
         final List<Series> seriesList = seriesJdbcTemplate.query("SELECT * " +
                 "FROM (series LEFT JOIN hasGenre ON hasgenre.seriesid = series.id LEFT JOIN genres ON hasgenre.genreid = genres.id LEFT JOIN network ON network.networkid = series.networkid) " +

@@ -36,14 +36,24 @@
                 <div class="form-group">
                     <label for="seriesGenreInputSelect"><spring:message code="search.genre"/></label>
                     <select class="form-control" id="seriesGenreInputSelect" name="genre">
+                        <option value="" selected>
+                            <spring:message code="search.all"/>
+                        </option>
                         <c:forEach items="${genres}" var="genre">
                             <option value="<c:out value="${genre.name}"/>"><c:out value="${genre.name}"/></option>
                         </c:forEach>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="seriesNetworkInput"><spring:message code="search.network"/></label>
-                    <input type="text" class="form-control" id="seriesNetworkInput" name="network">
+                    <label for="networkInputSelect"><spring:message code="search.network"/></label>
+                    <select class="form-control" id="networkInputSelect" name="network">
+                        <option value="" selected>
+                            <spring:message code="search.all"/>
+                        </option>
+                        <c:forEach items="${networks}" var="network">
+                            <option value="<c:out value="${network}"/>"><c:out value="${network}"/></option>
+                        </c:forEach>
+                    </select>
                 </div>
                 <div class="form-group">
                     <div class="text-center m-3">
