@@ -18,6 +18,7 @@ import java.util.*;
 @Service
 public class SeriesServiceImpl implements SeriesService {
 
+    private static final int MAX_RATING = 5;
     @Autowired
     private SeriesDao seriesDao;
     @Autowired
@@ -113,7 +114,10 @@ public class SeriesServiceImpl implements SeriesService {
     }
 
     @Override
-    public void rateSeries(long seriesId, double rating) throws NotFoundException, UnauthorizedException {
+    public void rateSeries(long seriesId, double rating) throws NotFoundException, UnauthorizedException, BadRequestException {
+        if(rating > MAX_RATING){
+            throw new BadRequestException();
+        }
         User user = userService.getLoggedUser().orElseThrow(UnauthorizedException::new);
         int result = seriesDao.rateSeries(seriesId, user.getId(), rating);
         if(result == 0) {

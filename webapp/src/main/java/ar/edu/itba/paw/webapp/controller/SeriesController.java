@@ -4,6 +4,7 @@ import ar.edu.itba.paw.interfaces.SeriesService;
 import ar.edu.itba.paw.interfaces.UserService;
 import ar.edu.itba.paw.model.Series;
 import ar.edu.itba.paw.model.User;
+import ar.edu.itba.paw.model.exceptions.BadRequestException;
 import ar.edu.itba.paw.model.exceptions.NotFoundException;
 import ar.edu.itba.paw.model.exceptions.UnauthorizedException;
 import ar.edu.itba.paw.webapp.form.CommentForm;
@@ -75,7 +76,7 @@ public class SeriesController {
     }
 
     @RequestMapping(value = "/rate")
-    public ModelAndView rate(@RequestParam("seriesId") long seriesId, @RequestParam("rating") int rating) throws NotFoundException, UnauthorizedException {
+    public ModelAndView rate(@RequestParam("seriesId") long seriesId, @RequestParam("rating") int rating) throws NotFoundException, UnauthorizedException, BadRequestException {
         seriesService.rateSeries(seriesId, rating);
         return new ModelAndView("redirect:/series?id=" + seriesId);
     }

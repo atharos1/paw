@@ -29,7 +29,7 @@ public interface SeriesService {
     void followSeries(long seriesId) throws NotFoundException, UnauthorizedException;
     void setViewedEpisode(long episodeId) throws NotFoundException, UnauthorizedException;
     void setViewedSeason(long seasonId) throws UnauthorizedException, NotFoundException;
-    void rateSeries(long seriesId,double rating) throws NotFoundException, UnauthorizedException;
+    void rateSeries(long seriesId,double rating) throws NotFoundException, UnauthorizedException, BadRequestException;
     void unviewEpisode(long episodeId) throws NotFoundException, UnauthorizedException;
     void unviewSeason(long seasonId) throws UnauthorizedException, NotFoundException;
     void addSeriesReview(String body, long seriesId) throws NotFoundException, UnauthorizedException;
