@@ -619,7 +619,14 @@ public class SeriesDaoJdbc implements SeriesDao {
         }
         return rowsDeleted;
     }
-
+    @Override
+    public boolean userFollows(long seriesId, long userId) {
+        List<Integer> series = seriesJdbcTemplate.query("SELECT * " +
+                        "FROM follows " +
+                        "WHERE follows.userid = ? AND follows.seriesid = ?", new Object[]{userId, seriesId},
+                (resultSet, i) -> resultSet.getInt("seriesid"));
+        return series.size() > 0;
+    }
     @Override
     public int setViewedEpisode(long episodeId, long userId) {
         List<Date> dateList = seriesJdbcTemplate.query("SELECT episode.aired AS airing\n" +
@@ -798,14 +805,6 @@ public class SeriesDaoJdbc implements SeriesDao {
         Integer count = seriesJdbcTemplate.queryForObject("SELECT count(*) FROM haslikedseriesreview " +
                 "WHERE userid = ? AND seriesreview = ?", new Object[]{userId, postId},Integer.class);
         return count > 0;
-    }
-
-    private boolean userFollows(long seriesId, long userId) {
-        List<Integer> series = seriesJdbcTemplate.query("SELECT * " +
-                        "FROM follows " +
-                        "WHERE follows.userid = ? AND follows.seriesid = ?", new Object[]{userId, seriesId},
-                (resultSet, i) -> resultSet.getInt("seriesid"));
-        return series.size() > 0;
     }
 
     private Double getUserSeriesRating(long userId,long seriesId) {

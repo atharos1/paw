@@ -122,9 +122,7 @@
                                                             <c:when test="${isLogged && season.viewed}">
                                                                 <label class="cd-accordion__label cd-accordion__label--icon-folder drop drop-watched" for="group-${item.index}">
                                                                     <span class="big-size"><spring:message code="series.Season"/> ${season.seasonNumber}</span>
-                                                                    <c:if test="${isLogged && series.follows}">
-                                                                        <span class="ml-3 viewed-episodes">${season.episodesViewed} / ${fn:length(season.episodeList)}</span>
-                                                                    </c:if>
+                                                                    <span class="ml-3 viewed-episodes">${season.episodesViewed} / ${fn:length(season.episodeList)}</span>
                                                                     <form action="<c:url value="/unviewSeason?seriesId=${series.id}&seasonId=${season.id}"/>"
                                                                           method="post">
                                                                         <button type="submit"
@@ -137,7 +135,7 @@
                                                             <c:otherwise>
                                                                 <label class="cd-accordion__label cd-accordion__label--icon-folder drop" for="group-${item.index}">
                                                                     <span class="big-size"><spring:message code="series.Season"/> ${season.seasonNumber}</span>
-                                                                    <c:if test="${isLogged && series.follows}">
+                                                                    <c:if test="${isLogged}">
                                                                         <span class="ml-3 viewed-episodes">${season.episodesViewed} / ${fn:length(season.episodeList)}</span>
                                                                         <c:if test="${season.seasonAired}">
                                                                             <form action="<c:url value="/viewSeason?seriesId=${series.id}&seasonId=${season.id}"/>"
@@ -160,7 +158,7 @@
                                                                             - ${episode.name}</h3>
                                                                         <span class="ml-3 episode-date"><fmt:formatDate value="${episode.airing}" type="date" dateStyle="short"/></span>
                                                                         <c:set var="today_date" value="<%=new java.util.Date()%>"/>
-                                                                        <c:if test="${isLogged && series.follows && (episode.airing lt today_date)}">
+                                                                        <c:if test="${isLogged && (episode.airing lt today_date)}">
                                                                             <c:choose>
                                                                                 <c:when test="${episode.viewed}">
                                                                                     <form action="<c:url value="/unviewEpisode?seriesId=${series.id}&episodeId=${episode.id}"/>"

@@ -93,6 +93,12 @@ public class SeriesServiceImpl implements SeriesService {
     }
 
     @Override
+    public boolean follows(long seriesId) throws UnauthorizedException {
+        User user = userService.getLoggedUser().orElseThrow(UnauthorizedException::new);
+        return seriesDao.userFollows(seriesId,user.getId());
+    }
+
+    @Override
     public void followSeries(long seriesId) throws NotFoundException, UnauthorizedException {
         User user = userService.getLoggedUser().orElseThrow(UnauthorizedException::new);
         int result = seriesDao.followSeries(seriesId, user.getId());
