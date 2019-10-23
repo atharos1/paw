@@ -31,30 +31,38 @@
             <form action="<c:url value="/search"/>" method="post" enctype="application/x-www-form-urlencoded">
                 <div class="form-group">
                     <label for="seriesNameInput"><spring:message code="search.name"/> </label>
-                    <input type="text" class="form-control" id="seriesNameInput" name="name">
+                    <input type="text" class="form-control" id="seriesNameInput" name="name"
+                           <c:if test="${not empty form}">value="${form.name}"</c:if>>
                 </div>
                 <div class="form-group">
                     <label for="seriesGenreInputSelect"><spring:message code="search.genre"/></label>
                     <select class="form-control" id="seriesGenreInputSelect" name="genre">
-                        <option value="" selected>
+                        <option value="" <c:if test="${empty form}">selected</c:if>>
                             <spring:message code="search.all"/>
                         </option>
                         <c:forEach items="${genres}" var="genre">
-                            <option value="<c:out value="${genre.name}"/>"><c:out value="${genre.name}"/></option>
+                            <option value="<c:out value="${genre.name}"/>" <c:if test="${not empty form && genre.name eq form.genre}">selected</c:if>>
+                                <c:out value="${genre.name}"/>
+                            </option>
                         </c:forEach>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="networkInputSelect"><spring:message code="search.network"/></label>
                     <select class="form-control" id="networkInputSelect" name="network">
-                        <option value="" selected>
+                        <option value="" <c:if test="${empty form}">selected</c:if>>
                             <spring:message code="search.all"/>
                         </option>
                         <c:forEach items="${networks}" var="network">
-                            <option value="<c:out value="${network}"/>"><c:out value="${network}"/></option>
+                            <option value="<c:out value="${network}"/>" <c:if test="${not empty form && network eq form.network}">selected</c:if>>
+                                <c:out value="${network}"/>
+                            </option>
                         </c:forEach>
                     </select>
                 </div>
+                <c:if test="${emptySearch}">
+                    <span class="error m-3 w-100"><spring:message code="search.noResults"/></span>
+                </c:if>
                 <div class="form-group">
                     <div class="text-center m-3">
                         <input class="tutv-button" type="submit" value="<spring:message code="search.search"/>"/>
@@ -67,7 +75,6 @@
                         </a>
                     </div>
                 </div>
-
             </form>
         </div>
     </div>
