@@ -52,11 +52,19 @@
                                             <span class="star"></span>
                                             <h2>${series.totalRating} / 5.0</h2>
                                         </div>
-                                        <c:if test="${isLogged && not series.follows}">
-                                            <form action="<c:url value="/addSeries?seriesId=${series.id}"/>"
-                                                  method="post">
-                                                <button class="add-button" type="submit"><spring:message code="series.follow"/></button>
-                                            </form>
+                                        <c:if test="${isLogged}">
+                                            <c:choose>
+                                                <c:when test="${series.follows}">
+                                                    <form action="<c:url value="/unfollowSeries?seriesId=${series.id}"/>" method="post">
+                                                        <button class="add-button" type="submit"><spring:message code="series.unfollow"/></button>
+                                                    </form>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <form action="<c:url value="/addSeries?seriesId=${series.id}"/>" method="post">
+                                                        <button class="add-button" type="submit"><spring:message code="series.follow"/></button>
+                                                    </form>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </c:if>
                                     </div>
                                 </div>

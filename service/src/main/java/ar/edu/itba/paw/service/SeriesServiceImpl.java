@@ -18,7 +18,9 @@ import java.util.*;
 @Service
 public class SeriesServiceImpl implements SeriesService {
 
+    private static final int MIN_RATING = 0;
     private static final int MAX_RATING = 5;
+
     @Autowired
     private SeriesDao seriesDao;
     @Autowired
@@ -100,6 +102,15 @@ public class SeriesServiceImpl implements SeriesService {
     }
 
     @Override
+    public void unfollowSeries(long seriesId) throws NotFoundException, UnauthorizedException {
+        User user = userService.getLoggedUser().orElseThrow(UnauthorizedException::new);
+        int result = seriesDao.unfollowSeries(seriesId, user.getId());
+        if(result == 0) {
+            throw new NotFoundException();
+        }
+    }
+
+    @Override
     public void setViewedEpisode(long episodeId) throws NotFoundException, UnauthorizedException {
         User user = userService.getLoggedUser().orElseThrow(UnauthorizedException::new);
         int result = seriesDao.setViewedEpisode(episodeId, user.getId());
@@ -115,7 +126,7 @@ public class SeriesServiceImpl implements SeriesService {
 
     @Override
     public void rateSeries(long seriesId, double rating) throws NotFoundException, UnauthorizedException, BadRequestException {
-        if(rating > MAX_RATING){
+        if(rating > MAX_RATING || rating < MIN_RATING){
             throw new BadRequestException();
         }
         User user = userService.getLoggedUser().orElseThrow(UnauthorizedException::new);

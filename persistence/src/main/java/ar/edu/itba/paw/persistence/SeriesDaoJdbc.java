@@ -612,6 +612,15 @@ public class SeriesDaoJdbc implements SeriesDao {
     }
 
     @Override
+    public int unfollowSeries(long seriesId, long userId) {
+        int rowsDeleted = seriesJdbcTemplate.update("DELETE FROM follows WHERE userid = ? AND seriesid = ?",userId,seriesId);
+        if(rowsDeleted > 0){
+            seriesJdbcTemplate.update("UPDATE series SET followers = (followers - 1) WHERE id = ?", seriesId);
+        }
+        return rowsDeleted;
+    }
+
+    @Override
     public int setViewedEpisode(long episodeId, long userId) {
         List<Date> dateList = seriesJdbcTemplate.query("SELECT episode.aired AS airing\n" +
                 "FROM episode\n" +

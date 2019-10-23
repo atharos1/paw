@@ -49,6 +49,12 @@ public class SeriesController {
         return new ModelAndView("redirect:/series?id=" + seriesId);
     }
 
+    @RequestMapping(value = "/unfollowSeries", method = RequestMethod.POST)
+    public ModelAndView unfollowSeries(@RequestParam("seriesId") long seriesId) throws NotFoundException, UnauthorizedException {
+        seriesService.unfollowSeries(seriesId);
+        return new ModelAndView("redirect:/series?id=" + seriesId);
+    }
+
     @RequestMapping(value = "/viewSeason", method = RequestMethod.POST)
     public ModelAndView viewSeason(@RequestParam("seriesId") long seriesId, @RequestParam("seasonId") long seasonId) throws UnauthorizedException, NotFoundException {
         seriesService.setViewedSeason(seasonId);
