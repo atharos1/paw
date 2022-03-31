@@ -14,7 +14,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <!-- Joda-Time -->
         <joda-time.version>2.10</joda-time.version>
-        <org.springframework.version>4.2.5.RELEASE</org.springframework.version>
+        <org.springframework.version>5.3.18</org.springframework.version>
         <!-- Plugins versions -->
         <maven-war-plugin.version>2.6</maven-war-plugin.version>
         <servlet-api.version>2.5</servlet-api.version>
